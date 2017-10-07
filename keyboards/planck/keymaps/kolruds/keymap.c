@@ -22,12 +22,12 @@
 #define _CtlEsc CTL_T(KC_ESC)
 
 // Alt tab
-#define _AltT KC_LALT(KC_TAB)
-#define _AktB KC_LALT(KC_LSFT(KC_TAB))
+#define _AltT LALT(KC_TAB)
+#define _AltB LALT(LSFT(KC_TAB))
 
 // Ctrl tab
- #define _CtlT KC_LCTL(KC_TAB)
-#define _CtlB KC_LCTL(KC_LSFT(KC_TAB))
+ #define _CtlT LCTL(KC_TAB)
+#define _CtlB LCTL(LSFT(KC_TAB))
 
 // Macros
  #define W_CAD LCTL(LALT(KC_DEL))
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _AltB,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR, KC_DEL},
   {_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _AltT,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, SK_ASCR, KC_INS},
   {_______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _CtlT,  _______, _______, _______, _______, _______, _______},
-  {NUM,     _______, _______, _______, _______, _CtlB,  _______, _______, _______, _______, _______, _______}
+  {MO(NUM), _______, _______, _______, _______, _CtlB,  _______, _______, _______, _______, _______, _______}
 },
 
 /* Raise
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS},
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LCBR, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, KC_LCBR},
+  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LCBR, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, KC_RCBR},
   {_______, KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_MINS, KC_UNDS, KC_LABK, KC_RABK, KC_EQL,  KC_PIPE, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_A_AA]  = ACTION_TAP_DANCE_DOUBLE(KC_A, NO_AA),
   [TD_E_AE]  = ACTION_TAP_DANCE_DOUBLE(KC_E, NO_AE),
-  [TD_O_OE]  = ACTION_TAP_DANCE_DOUBLE(KC_O, NO_OE)
+  [TD_O_OE]  = ACTION_TAP_DANCE_DOUBLE(KC_O, NO_OSLH)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -249,10 +249,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NUM:
       if (record->event.pressed) {
         layer_on(_NUM);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_NUM);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -269,4 +267,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}
+	}
